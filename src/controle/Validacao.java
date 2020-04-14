@@ -25,4 +25,17 @@ public class Validacao
         }
         
     }
+
+    public int getRespostaValida()
+    {
+        return respostaValida;
+    }
+
+    public String getMensagem()
+    {
+        return mensagem;
+    }
+    
+    
+    
 }
