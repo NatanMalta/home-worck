@@ -1,54 +1,20 @@
 package apresentacao;
 
 import controle.ControleQuestoes;
-import controle.Numeros;
 import controle.Validacao;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 
 public class frmSSoma extends javax.swing.JDialog
-{
-
-    private List<List> questoes;
-    private int numQuestao;
-    private int numQuesta;
-    private int numSuperior;
-    private int numInferior;
-    private int resposta;
-    private int qntQuestoes;
-    private ControleQuestoes objControle;
-    
+{    
+    private final ControleQuestoes objControle;
     
     public frmSSoma(java.awt.Frame parent, boolean modal)
     {
         super(parent, modal);
         initComponents();
         
-         this.objControle = new ControleQuestoes();
-        
-        
-        /*questoes = new ArrayList<>();
-        Numeros objNumeros = new Numeros();
-        questoes = objNumeros.getNumeros();
-        
-        this.qntQuestoes = questoes.size() - 1;
-        
-        
-        
-       
-        this.numQuestao = 0;
-        this.numQuesta = numQuestao + 1;
-        
-        this.numSuperior = (int) questoes.get(numQuestao).get(0);
-        this.numInferior = (int) questoes.get(numQuestao).get(1);
-        this.resposta = numSuperior + numInferior;*/
-        lblNumeroQuestao.setText(Integer.toString(objControle.getNumQuesta()));
-        lblNumeroSuperior.setText(Integer.toString(objControle.getNumSuperior()));
-        lblNumeroInferior.setText(Integer.toString(objControle.getNumInferior()));
-        
-        
+         this.objControle = new ControleQuestoes(lblNumeroQuestao, lblNumeroSuperior, lblNumeroInferior, this);      
     }
 
     
@@ -64,7 +30,6 @@ public class frmSSoma extends javax.swing.JDialog
         btnResponder = new javax.swing.JButton();
         lblResposta = new javax.swing.JLabel();
         lblNumeroQuestao = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Soma");
@@ -91,28 +56,21 @@ public class frmSSoma extends javax.swing.JDialog
         lblNumeroQuestao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNumeroQuestao.setText("N° 1");
 
-        jLabel1.setText("Estamos na master gg");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblNumeroQuestao)
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnResponder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txfResultado)
-                            .addComponent(lblNumeroInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNumeroSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblResposta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel1)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(lblNumeroQuestao)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnResponder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfResultado)
+                    .addComponent(lblNumeroInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumeroSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblResposta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,9 +87,7 @@ public class frmSSoma extends javax.swing.JDialog
                 .addComponent(btnResponder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblResposta, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -155,34 +111,16 @@ public class frmSSoma extends javax.swing.JDialog
         
         if(objValidacao.getMensagem().equals(""))
         {
-
-            int resposta = objValidacao.getRespostaValida();
-
-            if(resposta != this.objControle.getResposta() )
+            if(objControle.verificarResposta(objValidacao.getRespostaValida()))
             {
                 txfResultado.setText("");
-
-                if(this.objControle.getNumQuestao()== this.objControle.getQntQuestoes())
-                {
-                    this.dispose();
-                }
-
-
-                if(this.objControle.getNumQuestao() < this.objControle.getQntQuestoes())
-                {
-                    
-                    this.objControle.setNumQuestao( this.objControle.getNumQuestao() + 1  );
-                    this.objControle.setNumQuesta(this.objControle.getNumQuestao() + 1);
-                }
-
-                this.objControle.setNumSuperior((int) this.objControle.getQuestoes().get(this.objControle.getNumQuestao()).get(0));
-                this.objControle.setNumInferior((int) this.objControle.getQuestoes().get(this.objControle.getNumQuestao()).get(1));
+                this.objControle.verificarUltimaQuestao();
+                this.objControle.proximaQuestao();
                 
-                this.objControle.setResposta(this.objControle.getNumSuperior() + this.objControle.getNumInferior());
-                
-                lblNumeroQuestao.setText(Integer.toString(this.objControle.getNumQuesta()));
-                lblNumeroSuperior.setText(Integer.toString(this.objControle.getNumSuperior()));
-                lblNumeroInferior.setText(Integer.toString(this.objControle.getNumSuperior()));
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "resposta incorreta", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
         else
@@ -194,7 +132,6 @@ public class frmSSoma extends javax.swing.JDialog
    
     public static void main(String args[])
     {
-        
         java.awt.EventQueue.invokeLater(new Runnable()
         {
             public void run()
@@ -212,10 +149,9 @@ public class frmSSoma extends javax.swing.JDialog
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnResponder;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblNumeroInferior;
     private javax.swing.JLabel lblNumeroQuestao;
