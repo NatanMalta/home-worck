@@ -19,6 +19,7 @@ public class Validacao
         try
         {
             this.respostaValida = Integer.parseInt(this.resposta);
+            
         } catch (NumberFormatException e)
         {
             this.mensagem = "Você digitou um número inválido";

@@ -5,6 +5,10 @@
  */
 package apresentacao;
 
+import controle.ControleQuestoes;
+import controle.Validacao;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author admin
@@ -15,10 +19,22 @@ public class frmMultiplicacao extends javax.swing.JDialog
     /**
      * Creates new form frmMultiplicacao
      */
+    
+    
+    private final ControleQuestoes objControle;
+     
+     public boolean getTerminou()
+    {
+        return this.objControle.getTerminou();
+    }
+    
+    
+    
     public frmMultiplicacao(java.awt.Frame parent, boolean modal)
     {
         super(parent, modal);
         initComponents();
+        this.objControle = new ControleQuestoes(lblNumeroQuestao, lblNumeroSuperior, lblNumeroInferior, this, "*", 9999,9,true,false); 
     }
 
     /**
@@ -115,7 +131,26 @@ public class frmMultiplicacao extends javax.swing.JDialog
 
     private void btnResponderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnResponderActionPerformed
     {//GEN-HEADEREND:event_btnResponderActionPerformed
-
+        Validacao objValidacao = new Validacao(txfResultado.getText());
+        
+        if(objValidacao.getMensagem().equals(""))
+        {
+            if(objControle.verificarResposta(objValidacao.getRespostaValida()))
+            {
+                txfResultado.setText("");
+                this.objControle.verificarUltimaQuestao();
+                this.objControle.proximaQuestao();
+                                
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "resposta incorreta", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, objValidacao.getMensagem(), "Número Invalido!!!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnResponderActionPerformed
 
     /**

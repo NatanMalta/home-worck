@@ -14,7 +14,12 @@ public class frmSSoma extends javax.swing.JDialog
         super(parent, modal);
         initComponents();
         
-         this.objControle = new ControleQuestoes(lblNumeroQuestao, lblNumeroSuperior, lblNumeroInferior, this);      
+         this.objControle = new ControleQuestoes(lblNumeroQuestao, lblNumeroSuperior, lblNumeroInferior, this, "+", 9999999,1000000,false,false);      
+    }
+    
+    public boolean getTerminou()
+    {
+        return this.objControle.getTerminou();
     }
 
     

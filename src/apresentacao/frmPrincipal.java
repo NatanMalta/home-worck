@@ -5,6 +5,12 @@
  */
 package apresentacao;
 
+import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author admin
@@ -20,30 +26,75 @@ public class frmPrincipal extends javax.swing.JFrame
         initComponents();
     }
     
+    private void Terminou() throws IOException
+    {
+        if(bntSoma.getBackground() == Color.GREEN &&
+           btnSubtracao.getBackground() == Color.GREEN &&
+           btnDivisao.getBackground() == Color.GREEN &&
+           btnMultiplicacao.getBackground() == Color.GREEN)
+        {
+            JOptionPane.showMessageDialog(null, "PARABENS VOCÊ TERMINOU AGORA VOCÊ PODE JOGAR", "PARABENS", JOptionPane.PLAIN_MESSAGE);
+            
+            if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
+            {
+                Process process = Runtime.getRuntime().exec("cmd /c start explorer.exe");
+            }
+            
+            
+            
+        }
+                   
+    }
+    
     private void abrirForm(String formulario)
     {
         
         
         switch (formulario)
         {
+            
             case "+":
-                frmSSoma frmS = new frmSSoma(this,true);
-                frmS.setVisible(true);
+                if(bntSoma.getBackground() != Color.GREEN)
+                {   
+                    frmSSoma frmS = new frmSSoma(this,true);
+                    frmS.setVisible(true);
+                    if(frmS.getTerminou())  bntSoma.setBackground(Color.GREEN);
+                }
+                else JOptionPane.showMessageDialog(null, "VOCÊ JÁ RESPONDEU ESSAS QUESTÕES", "Aviso", JOptionPane.PLAIN_MESSAGE);
+                
+                
                 break;
                 
             case "-":
-                frmSubtracao frmSu = new frmSubtracao(this,true);
-                frmSu.setVisible(true);
+                if(btnSubtracao.getBackground() != Color.GREEN)
+                {
+                    frmSubtracao frmSu = new frmSubtracao(this,true);
+                    frmSu.setVisible(true);
+                    if (frmSu.getTerminou()) btnSubtracao.setBackground(Color.GREEN);
+                } else  JOptionPane.showMessageDialog(null, "VOCÊ JÁ RESPONDEU ESSAS QUESTÕES", "Aviso", JOptionPane.PLAIN_MESSAGE);
+                
                 break;
                 
             case "/":
-                frmDivisao frmD = new frmDivisao(this, true);
-                frmD.setVisible(true);
+                
+                if(btnDivisao.getBackground() != Color.GREEN)
+                {
+                    frmDivisao frmD = new frmDivisao(this, true);
+                    frmD.setVisible(true);
+                    if (frmD.getTerminou()) btnDivisao.setBackground(Color.GREEN);
+                }else JOptionPane.showMessageDialog(null, "VOCÊ JÁ RESPONDEU ESSAS QUESTÕES", "Aviso", JOptionPane.PLAIN_MESSAGE);
                 break;
                 
             case "*":
-                frmMultiplicacao frmM = new frmMultiplicacao(this, true);
-                frmM.setVisible(true);
+                
+                if(btnMultiplicacao.getBackground() != Color.GREEN)
+                {
+                    frmMultiplicacao frmM = new frmMultiplicacao(this, true);
+                    frmM.setVisible(true);
+                    if (frmM.getTerminou()) btnMultiplicacao.setBackground(Color.GREEN);
+                }else JOptionPane.showMessageDialog(null, "VOCÊ JÁ RESPONDEU ESSAS QUESTÕES", "Aviso", JOptionPane.PLAIN_MESSAGE);
+                
+                
                 break;
         }
         
@@ -147,7 +198,9 @@ public class frmPrincipal extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,26 +208,56 @@ public class frmPrincipal extends javax.swing.JFrame
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bntSomaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_bntSomaActionPerformed
     {//GEN-HEADEREND:event_bntSomaActionPerformed
         abrirForm("+");
+        try
+        {
+            Terminou();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bntSomaActionPerformed
 
     private void btnDivisaoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnDivisaoActionPerformed
     {//GEN-HEADEREND:event_btnDivisaoActionPerformed
         abrirForm("/");
+        try
+        {
+            Terminou();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnDivisaoActionPerformed
 
     private void btnSubtracaoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnSubtracaoActionPerformed
     {//GEN-HEADEREND:event_btnSubtracaoActionPerformed
         abrirForm("-");
+        try
+        {
+            Terminou();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSubtracaoActionPerformed
 
     private void btnMultiplicacaoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnMultiplicacaoActionPerformed
     {//GEN-HEADEREND:event_btnMultiplicacaoActionPerformed
         abrirForm("*");
+        try
+        {
+            Terminou();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnMultiplicacaoActionPerformed
 
     /**
