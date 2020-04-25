@@ -2,6 +2,7 @@ package homework;
 
 import apresentacao.frmPrincipal;
 import controle.Numeros;
+import controle.NumerosDouble;
 import java.io.IOException;
 
 
@@ -14,11 +15,15 @@ public class HomeWork
     {
         
         
+        
+        
+        
+        /*
         if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
         {
             Process process = Runtime.getRuntime().exec("cmd /c taskkill /F /IM explorer.exe");
         }
-        
+        */
         frmPrincipal frmP = new frmPrincipal();
         frmP.setVisible(true);
         

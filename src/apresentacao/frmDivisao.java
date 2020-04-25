@@ -140,11 +140,11 @@ public class frmDivisao extends javax.swing.JDialog
 
     private void btnResponderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnResponderActionPerformed
     {//GEN-HEADEREND:event_btnResponderActionPerformed
-Validacao objValidacao = new Validacao(txfResultado.getText());
+Validacao objValidacao = new Validacao(txfResultado.getText(), "/");
         
         if(objValidacao.getMensagem().equals(""))
         {
-            if(objControle.verificarResposta(objValidacao.getRespostaValida()))
+            if(objControle.verificarResposta(objValidacao.getRespostaValidaD()))
             {
                 txfResultado.setText("");
                 this.objControle.verificarUltimaQuestao();

@@ -131,7 +131,7 @@ public class frmMultiplicacao extends javax.swing.JDialog
 
     private void btnResponderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnResponderActionPerformed
     {//GEN-HEADEREND:event_btnResponderActionPerformed
-        Validacao objValidacao = new Validacao(txfResultado.getText());
+        Validacao objValidacao = new Validacao(txfResultado.getText(), "*");
         
         if(objValidacao.getMensagem().equals(""))
         {

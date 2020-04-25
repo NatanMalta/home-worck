@@ -93,6 +93,71 @@ public class Numeros
         }
               
     }
+    
+    
+    public Numeros(int max, int min)
+    {
+        Random objRandom = new Random();
+        int maximo = max;
+        int minimo = min;
+        this.numeros = new ArrayList<>();
+                
+        List<Integer> questao = new ArrayList<>();
+        
+        for (int i = 0; i < 10; i++)
+        {
+            int numSuperior = objRandom.nextInt((maximo - minimo) + 1) + minimo;
+            
+            int numInferior = objRandom.nextInt((numSuperior - minimo) + 1) + minimo; 
+            numInferior = (int)(Math.random() * 10);
+            if(numInferior < 2){
+                numInferior = 2;
+            }
+
+            while(numSuperior % 2 != 0)
+            {
+                numSuperior = objRandom.nextInt((maximo - minimo) + 1) + minimo;
+            }
+
+            while(numInferior % 2 != 0)
+            {
+                numInferior = (int)(Math.random() * 10);
+                if(numInferior < 2){
+                    numInferior = 2;
+                }
+            }
+
+            while(numSuperior % numInferior != 0)
+            {
+                numSuperior = objRandom.nextInt((maximo - minimo) + 1) + minimo;
+                numInferior = (int)(Math.random() * 10);
+                if(numInferior < 2){
+                    numInferior = 2;
+                }
+
+                while(numSuperior % 2 != 0)
+                {
+                    numSuperior = objRandom.nextInt((maximo - minimo) + 1) + minimo;
+                }
+
+                while(numInferior % 2 != 0)
+                {
+                    numInferior = (int)(Math.random() * 10);
+                    if(numInferior < 2){
+                        numInferior = 2;
+                    }
+                }
+
+        }
+
+        questao.add(numSuperior);
+        questao.add(numInferior);
+        this.numeros.add(questao);
+        questao = new ArrayList<>();
+
+    }
+
+}
 
     public List<List> getNumeros()
     {
